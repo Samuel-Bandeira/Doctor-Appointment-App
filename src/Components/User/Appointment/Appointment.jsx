@@ -1,41 +1,28 @@
-import React, { useState } from "react";
-import { Box, Typography, Button, Card, ToggleButton } from "@mui/material";
+import { Box } from "@mui/material";
+import { useState } from "react";
+import CreateAppointment from "./CreateAppointment";
+import PayAppointment from "./PayAppointment";
 const Appointment = () => {
-  const [tag, setTag] = useState(false);
-  const handleTag = () => {
-    setTag(!tag);
-  };
-  const appointments = [
-    {
-      doctor: "Carlos Cesár Ribeiro",
-      hours: ["10:00", "10:20", "10:40", "11:00"],
-    },
-    {
-      doctor: "Roberto Carlos Coelho",
-      hours: ["10:00", "10:20", "10:40", "11:00"],
-    },
-  ];
+  const [page, setPage] = useState(0);
+  const [data, setData] = useState({
+    username: "",
+    doctor_name: "",
+    specialty: "",
+    appointment_date: "",
+    appointment_hour: "",
+    appointment_price: "",
+  });
+
   return (
     <Box>
-      <Typography variant="h5">Appointment</Typography>
-      <Typography variant="h6">Cardiology</Typography>
-      <Typography variant="h6">Data: 4 de abril</Typography>
-      {appointments.map((el) => (
-        <Card elevation={3} sx={{ width: "400px", p: "20px" }}>
-          <Typography variant="h6">Doctor: {el.doctor}</Typography>
-          <Box sx={{ display: "flex" }}>
-            {el.hours.map((hour) => (
-              <Button
-                variant="outlined"
-                onClick={handleTag}
-                color={tag ? "primary" : "secondary"}
-              >
-                <Typography>{hour}</Typography>
-              </Button>
-            ))}
-          </Box>
-        </Card>
-      ))}
+      {page === 0 && (
+        <CreateAppointment
+          setPage={setPage}
+          data={data}
+          setData={setData}
+        ></CreateAppointment>
+      )}
+      {page === 1 && <PayAppointment data={data} setPage={setPage} />}
     </Box>
   );
 };
