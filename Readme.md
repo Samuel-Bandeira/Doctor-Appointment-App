@@ -3,9 +3,9 @@ This a new and improved version of an old project called clinic. The objective o
 
 # Objectives:
 ## - User Page: 
-- [ ] Login Page(Form Inputs: name, last name, email, password, confirm password, birth date, gender, accept terms, action button sign-up)
-- [ ] User profile(Settings, Log out)
-- [ ] Make appointments 
+- [x] Login Page(Form Inputs: name, last name, email, password, confirm password, birth date, gender, accept terms, action button sign-up)
+- [x] User profile(Settings, Log out)
+- [x] Make appointments 
 - [ ] View appointments(add cancel appointment function)
 - [ ] print pdf with valuable information about the appointment
 
