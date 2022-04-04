@@ -9,4 +9,11 @@ This a new and improved version of an old project called clinic. The objective o
 - [ ] View appointments(add cancel appointment function)
 - [ ] print pdf with valuable information about the appointment
 
+## - Admim Page:
+- [ ] Admim login
+- [ ] Admim sing up
+- [ ] Add Doctor
+- [ ] See all doctors(delete doctor, update doctor, see more about the doctor)
+- [ ] List of users(patients) and their appointments
+
 
