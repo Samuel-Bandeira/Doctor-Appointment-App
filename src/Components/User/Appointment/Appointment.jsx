@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import CreateAppointment from "./CreateAppointment";
 import PayAppointment from "./PayAppointment";
+import Specialties from "../Specialties/Specialties";
 const Appointment = () => {
   const [page, setPage] = useState(0);
   const [data, setData] = useState({
@@ -12,17 +13,19 @@ const Appointment = () => {
     appointment_hour: "",
     appointment_price: "",
   });
-
   return (
     <Box>
       {page === 0 && (
+        <Specialties data={data} setPage={setPage} setData={setData} />
+      )}
+      {page === 1 && (
         <CreateAppointment
           setPage={setPage}
           data={data}
           setData={setData}
         ></CreateAppointment>
       )}
-      {page === 1 && <PayAppointment data={data} setPage={setPage} />}
+      {page === 2 && <PayAppointment data={data} setPage={setPage} />}
     </Box>
   );
 };

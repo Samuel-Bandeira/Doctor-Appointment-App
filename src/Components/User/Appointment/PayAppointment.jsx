@@ -19,7 +19,7 @@ const PayAppointment = ({ data, setPage }) => {
       <Button
         variant="contained"
         onClick={() => {
-          setPage(0);
+          setPage((actual) => actual - 1);
         }}
       >
         Back
