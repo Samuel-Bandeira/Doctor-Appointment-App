@@ -9,6 +9,7 @@ This a new and improved version of an old project called clinic. The objective o
 - [ ] View appointments(add cancel appointment function)
 - [ ] print pdf with valuable information about the appointment
 - [x] Add better layout to appointments(add date bar, with all dates)
+- [x] Pass data throught each step of the form
 
 ## - Admim Page:
 - [ ] Admim login
