@@ -21,46 +21,45 @@ const SpecialtiesList = [
   },
 ];
 const Specialties = ({ data, setData, setPage }) => {
-  console.log(data);
+  const [clickedSpecialty, setClickedSpecialty] = useState(data.specialty);
 
-  const [specialtyValue, setSpecialtyValue] = useState("");
-  const [clicked, setClicked] = useState(null);
-  const [indexCompare, setIndexCompare] = useState(null);
   return (
     <Box>
       <Typography variant="h4">Specialties</Typography>
-      {SpecialtiesList.map((specialty, index) => (
-        <Box key={index}>
-          <Button
-            variant="contained"
-            value={specialty.name}
-            onClick={(event) => {
-              setSpecialtyValue(event.currentTarget.value);
-              setClicked(specialty.name);
-              setIndexCompare(index);
-            }}
-            color={
-              clicked == specialty.name && indexCompare == index
-                ? "secondary"
-                : "primary"
-            }
-          >
-            <Typography>{specialty.name}</Typography>
-          </Button>
-          <br />
-          <br />
-        </Box>
-      ))}
+      {SpecialtiesList.map((specialty, index) => {
+        return (
+          <Box key={index}>
+            <Button
+              variant="contained"
+              value={specialty.name}
+              onClick={() => {
+                setClickedSpecialty(specialty.name);
+              }}
+              color={
+                clickedSpecialty == specialty.name ? "secondary" : "primary"
+              }
+            >
+              <Typography>{specialty.name}</Typography>
+            </Button>
+            <br />
+            <br />
+          </Box>
+        );
+      })}
       <Button
         variant="contained"
         color="success"
         size="large"
         onClick={() => {
-          setData({
-            ...data,
-            specialty: specialtyValue,
-          });
-          setPage((actual) => actual + 1);
+          if (clickedSpecialty != "") {
+            setData({
+              ...data,
+              specialty: clickedSpecialty,
+            });
+            setPage((actual) => actual + 1);
+          } else {
+            alert("select a specialty please!");
+          }
         }}
       >
         Continue

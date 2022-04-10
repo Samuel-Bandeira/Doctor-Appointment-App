@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Card,
-  ToggleButton,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Button, Card, Paper } from "@mui/material";
 const CreateAppointment = ({ setPage, setData, data }) => {
-  const [selected, setSelected] = useState(null);
-  // const [selectedDate, setSelectedDate] = useState(null);
-  const [apDay, setApDay] = useState(null);
-  const [indexOfSelected, setIndexOfSelected] = useState(null);
-  const [apIndex, setApIndex] = useState(null);
-  const [doctor, setDoctor] = useState("");
-  const [date, setDate] = useState("");
-  const [appointmentHour, setAppointmentHour] = useState("");
-  const [selectedDate, setSelectedDate] = useState("04/05");
-  const [dateV, setDateV] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState(data.appointment_date);
+  const [appointmentDateIndex, setAppointmentDateIndex] = useState(
+    data.appointment_date_index
+  );
+  const [appointmentHourIndex, setAppointmentHourIndex] = useState(
+    data.appointment_hour_index
+  );
+  const [doctor, setDoctor] = useState(data.doctor_name);
+  const [appointmentHour, setAppointmentHour] = useState(data.appointment_hour);
   const appointmentPrice = 100;
   const appointments = [
     {
@@ -126,16 +118,13 @@ const CreateAppointment = ({ setPage, setData, data }) => {
                 display: "flex",
                 flexDirection: "column",
               }}
-              color={
-                apDay == day.value && apIndex === dIndex
-                  ? "secondary"
-                  : "primary"
-              }
               onClick={() => {
-                setApDay(day.value);
-                setApIndex(dIndex);
-                setSelectedDate(day.value);
+                setAppointmentDate(day.value);
+                if (appointmentDate != day.value) {
+                  setAppointmentHour(null);
+                }
               }}
+              color={appointmentDate == day.value ? "secondary" : "primary"}
             >
               <Typography
                 variant="h6"
@@ -166,36 +155,40 @@ const CreateAppointment = ({ setPage, setData, data }) => {
           ));
         })}
       </Paper>
-      {appointments.map((appointment, index) => (
+      {appointments.map((appointment, cardIndex) => (
         <Card
           elevation={3}
           sx={{ width: "max-content", p: "20px" }}
-          key={index}
+          key={cardIndex}
         >
           <Typography variant="h6">Doctor: {appointment.doctor}</Typography>
           <Box sx={{ display: "flex" }}>
             {appointment.dates.map((date) => {
-              if (date.value === selectedDate) {
-                return date.hours.map((hour, hourIndex) => (
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      setSelected(hour.value);
-                      setIndexOfSelected(index);
-                      setDoctor(appointment.doctor);
-                      setAppointmentHour(hour.value);
-                    }}
-                    key={hourIndex}
-                    color={
-                      selected == hour.value && indexOfSelected == index
-                        ? "warning"
-                        : "primary"
-                    }
-                    disabled={hour.booked ? true : false}
-                  >
-                    <Typography>{hour.value}</Typography>
-                  </Button>
-                ));
+              if (date.value === appointmentDate) {
+                return date.hours.map((hour, hourIndex) => {
+                  return (
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        setDoctor(appointment.doctor);
+                        setAppointmentHour(hour.value);
+                        setAppointmentHourIndex(cardIndex);
+                        setAppointmentDateIndex(appointmentDate);
+                      }}
+                      key={hourIndex}
+                      color={
+                        appointmentHour == hour.value &&
+                        appointmentHourIndex == cardIndex &&
+                        appointmentDateIndex == appointmentDate
+                          ? "warning"
+                          : "primary"
+                      }
+                      disabled={hour.booked ? true : false}
+                    >
+                      <Typography>{hour.value}</Typography>
+                    </Button>
+                  );
+                });
               }
             })}
           </Box>
@@ -214,15 +207,27 @@ const CreateAppointment = ({ setPage, setData, data }) => {
         variant="contained"
         color="success"
         onClick={() => {
-          setData({
-            ...data,
-            username: "Samuel",
-            doctor_name: doctor,
-            appointment_hour: appointmentHour,
-            appointment_date: selectedDate,
-            appointment_price: appointmentPrice,
-          });
-          setPage((actual) => actual + 1);
+          if (
+            doctor != "" &&
+            appointmentHour != "" &&
+            appointmentDate != "" &&
+            appointmentDateIndex != "" &&
+            appointmentPrice != ""
+          ) {
+            setData({
+              ...data,
+              username: "Samuel",
+              doctor_name: doctor,
+              appointment_hour: appointmentHour,
+              appointment_hour_index: appointmentHourIndex,
+              appointment_date: appointmentDate,
+              appointment_date_index: appointmentDateIndex,
+              appointment_price: appointmentPrice,
+            });
+            setPage((actual) => actual + 1);
+          } else {
+            alert("fill up all info, please!");
+          }
         }}
       >
         Continue
@@ -232,19 +237,3 @@ const CreateAppointment = ({ setPage, setData, data }) => {
 };
 
 export default CreateAppointment;
-//   <Button
-//     variant="contained"
-//     // onClick={() => {
-//     //   setTag(hour.value);
-//     //   setIndexS(index);
-//     //   setDoctor(el.doctor);
-//     // // }}
-//     // color={
-//     //   tag == hour.value && indexS == index
-//     //     ? "warning"
-//     //     : "primary"
-//     // }
-//     // disabled={hour.booked ? true : false}
-//   >
-//     <Typography>{hour.value}</Typography>
-//   </Button>

@@ -24,6 +24,15 @@ const PayAppointment = ({ data, setPage }) => {
       >
         Back
       </Button>
+      <Button
+        variant="contained"
+        color="success"
+        onClick={() => {
+          alert(JSON.stringify(data, null, 2));
+        }}
+      >
+        Confirm
+      </Button>
     </Box>
   );
 };

@@ -10,7 +10,9 @@ const Appointment = () => {
     doctor_name: "",
     specialty: "",
     appointment_date: "",
+    appointment_date_index: "",
     appointment_hour: "",
+    appointment_hour_index: "",
     appointment_price: "",
   });
   return (
