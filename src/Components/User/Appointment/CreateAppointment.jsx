@@ -97,6 +97,7 @@ const CreateAppointment = ({ setPage, setData, data }) => {
       ],
     },
   ];
+
   return (
     <Box>
       <Typography variant="h5">Appointment</Typography>
@@ -121,7 +122,7 @@ const CreateAppointment = ({ setPage, setData, data }) => {
               onClick={() => {
                 setAppointmentDate(day.value);
                 if (appointmentDate != day.value) {
-                  setAppointmentHour(null);
+                  setAppointmentHour("");
                 }
               }}
               color={appointmentDate == day.value ? "secondary" : "primary"}
@@ -197,6 +198,16 @@ const CreateAppointment = ({ setPage, setData, data }) => {
       <Button
         variant="contained"
         onClick={() => {
+          setData({
+            ...data,
+            username: "",
+            doctor_name: "",
+            appointment_date: "",
+            appointment_date_index: "",
+            appointment_hour: "",
+            appointment_hour_index: "",
+            appointment_price: "",
+          });
           setPage((actual) => actual - 1);
         }}
         color="error"
